@@ -308,7 +308,7 @@
                 }
                 else if (input_num === "") {
                     $('#span_ans_1_c').text("Please input number!!");
-                    $('#no_1_a .div_hide_c').css("display", "none");
+                    $('#no_1_c .div_hide_2').css("display", "none");
                 }
                 else {
                     $('#span_ans_1_c').text("Wrong!!");
@@ -317,7 +317,35 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1_f').click(function () {
+                $('#no_1_f #div_hide').css("display", "block");
+                $('#no_1_f .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1_f').val();
 
+                var num_1 = parseInt($('.span_num_1_f').text());
+                var num_2 = parseInt($('.span_num_2_f').text());
+                $('.span_num_11_f').text(num_1);
+                $('.span_num_12_f').text(num_2);
+                $('.span_num_13_f').text(input_num);
+
+                var sum = parseInt(input_num) - num_1;
+                if (sum === num_2) {
+                    $('#span_ans_1_f').text("Correct!!");
+                    $('#span_ans_1_f').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_1_f').text("Please input number!!");
+                    $('#no_1_f .div_hide_2').css("display", "none");
+                }
+                else {
+                    $('#span_ans_1_f').text("Wrong!!");
+                    $('#span_ans_1_f').css("color", "red");
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('#a_math_2').click(function () {
