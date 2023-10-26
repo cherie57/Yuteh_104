@@ -1,564 +1,574 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Yuteh</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
     <style>
-      body {font-family: Arial, Helvetica, sans-serif;}
-      .ui-widget {font-size:80%;}
-    
-            input[type="text"] {
-                text-align: center;
-                padding: 10px;
-                border-radius: 50px;
-            }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-            .a_btn {
-                height: 40px;
-                width: 73px;
-                margin-top: 4px;
-                text-align: center;
-                background: #efefef;
-                border: 2px solid #cfcfcf;
-                border-radius: 15px;
-                font-size: 18px;
-            }
+        .ui-widget {
+            font-size: 80%;
+        }
 
-                .a_btn:hover {
-                    cursor: pointer;
-                    color: #efefef;
-                    background: #0d6efd;
-                }
+        input[type="text"] {
+            text-align: center;
+            padding: 10px;
+            border-radius: 50px;
+        }
 
-                .a_btn:active {
-                    color: blue;
-                }
+        .a_btn {
+            height: 40px;
+            width: 73px;
+            margin-top: 4px;
+            text-align: center;
+            background: #efefef;
+            border: 2px solid #cfcfcf;
+            border-radius: 15px;
+            font-size: 18px;
+        }
 
-            #div_hide, .div_hide_2 {
-                display: none;
-            }
-
-            div#div_hide {
-                font-size: 20px;
-                color: #9f9c9c;
-                margin-left: 3%;
-                margin-top: 28px;
-            }
-
-            .correct-answer {
-                color: green;
-            }
-
-            .missing-answer {
-                color: red;
-            }
-
-            .span_font_bold {
-                font-weight: bolder;
-            }
-
-            .disabled-input:hover {
-                cursor: not-allowed;
-            }
-
-            .btn-style {
-                display: inline-block;
-                padding: 5px 10px;
+            .a_btn:hover {
                 cursor: pointer;
-                border: 2px solid #0f0f0f;
-                border-radius: 5px;
-                font-weight: bolder;
+                color: #efefef;
+                background: #0d6efd;
             }
 
-                .btn-style:hover {
-                    background-color: #98c1eb;
-                }
+            .a_btn:active {
+                color: blue;
+            }
 
-            .selected {
+        #div_hide, .div_hide_2 {
+            display: none;
+        }
+
+        div#div_hide {
+            font-size: 20px;
+            color: #9f9c9c;
+            margin-left: 3%;
+            margin-top: 28px;
+        }
+
+        .correct-answer {
+            color: green;
+        }
+
+        .missing-answer {
+            color: red;
+        }
+
+        .span_font_bold {
+            font-weight: bolder;
+        }
+
+        .disabled-input:hover {
+            cursor: not-allowed;
+        }
+
+        .btn-style {
+            display: inline-block;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 2px solid #0f0f0f;
+            border-radius: 5px;
+            font-weight: bolder;
+        }
+
+            .btn-style:hover {
                 background-color: #98c1eb;
-                color: #fff;
-            }
-        </style>
-
-
-        <script>
-            $(document).ready(function () {
-                generateRandomNumbers();
-            });
-
-            function generateRandomNumbers() {
-                var randomNum1, randomNum2, randomNum1_b, randomNum2_b, randomNum1_f, randomNum2_f;
-                // 保證 randomNum1_b 小於 randomNum2_b
-                do {
-                    randomNum1 = getRandomNumber(20);
-                    randomNum2 = getRandomNumber(20);
-
-                } while (!(randomNum1 < randomNum2));
-                do {
-
-                    randomNum1_b = getRandomNumberDiff(20, 1);
-                    randomNum2_b = getRandomNumber(20);
-                } while (!(randomNum1_b < randomNum2_b));
-                do {
-                    randomNum1_f = getRandomNumberDiff(9, 1);
-                    randomNum2_f = getRandomNumberDiff(9, 1);
-                } while (!(randomNum1_f < randomNum2_f));
-
-                const randomNum1_d = getRandomNumberDiff(9, 1);
-                const randomNum2_d = getRandomNumberDiff(9, 1);
-
-                const randomNum1_a = getRandomNumberDiff(10, 2);
-                const randomNum1_c = getRandomNumberDiff(10, 2);
-                const randomNum3 = getRandomNumber(20);
-                const randomNum4 = getRandomNumber(10);
-                const randomNum3_a = getRandomNumber(9);
-                const randomNum4_a = getRandomNumber(10);
-
-                var randomNum51 = getRandomNumber(30);
-                var randomNum52 = getRandomNumber(30);
-
-
-
-                $(".span_num_1").text(randomNum1);
-                $(".span_num_2").text(randomNum2);
-
-                $(".span_num_1_a").text('1');
-                $(".span_num_2_a").text(randomNum1_a);
-
-                $(".span_num_1_d").text(randomNum1_d);
-                $(".span_num_2_d").text(randomNum2_d);
-
-                $(".span_num_1_b").text(randomNum1_b);
-                $(".span_num_2_b").text(randomNum2_b);
-
-                $(".span_num_1_c").text('1');
-                $(".span_num_2_c").text(randomNum1_c);
-                $(".span_num_1_f").text(randomNum1_f);
-                $(".span_num_2_f").text(randomNum2_f);
-
-                $(".span_num_3").text(randomNum3);
-                $(".span_num_4").text(randomNum4);
-                $(".span_num_3_a").text(randomNum3_a);
-                $(".span_num_4_a").text(randomNum4_a);
-
-                $(".span_num_51").text(randomNum51);
-                $(".span_num_52").text(randomNum52);
             }
 
-            // 隨機生成 0 到 max 之間的數字
-            function getRandomNumber(max) {
-                return Math.floor(Math.random() * (max + 1));
-            }
-            // 隨機生成 0 到 max 之間的數字(減法)
-            function getRandomNumberDiff(max, limit) {
-                return Math.floor(Math.random() * (max + 1)) + limit;
-                //Math.floor(Math.random() * 9) + 2
-            }
-        </script>
+        .selected {
+            background-color: #98c1eb;
+            color: #fff;
+        }
 
-        <script>
-            $(document).ready(function () {
-                $('#a_math_1').click(function () {
-                    $('#no_1 #div_hide').css("display", "block");
-                    $('#no_1 .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_1').val();
+        .d-flex {
+            display: f
+        }
+    </style>
 
-                    var num_1 = parseInt($('.span_num_1').text());
-                    var num_2 = parseInt($('.span_num_2').text());
-                    $('.span_num_11').text(num_1);
-                    $('.span_num_12').text(num_2);
-                    $('.span_num_13').text(input_num);
 
-                    var sum = num_2 + parseInt(input_num);
-                    if (sum === num_1) {
-                        $('#span_ans_1').text("Correct!!");
-                        $('#span_ans_1').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_1').text("Please input number!!");
-                        $('#no_1 .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_1').text("Wrong!!");
-                        $('#span_ans_1').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#a_math_1_a').click(function () {
-                    $('#no_1_a #div_hide').css("display", "block");
-                    $('#no_1_a .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_1_a').val();
+    <script>
+        $(document).ready(function () {
+            generateRandomNumbers();
+        });
 
-                    var num_1 = parseInt($('.span_num_1_a').text());
-                    var num_2 = parseInt($('.span_num_2_a').text());
-                    $('.span_num_11_a').text(num_1);
-                    $('.span_num_12_a').text(num_2);
-                    $('.span_num_13_a').text(input_num);
+        function generateRandomNumbers() {
+            var randomNum1, randomNum2, randomNum1_b, randomNum2_b, randomNum1_f, randomNum2_f;
+            // 保證 randomNum1_b 小於 randomNum2_b
+            do {
+                randomNum1 = getRandomNumber(20);
+                randomNum2 = getRandomNumber(20);
 
-                    var sum = num_1 + parseInt(input_num);
-                    if (sum === num_2) {
-                        $('#span_ans_1_a').text("Correct!!");
-                        $('#span_ans_1_a').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_1_a').text("Please input number!!");
-                        $('#no_1_a .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_1_a').text("Wrong!!");
-                        $('#span_ans_1_a').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#a_math_1_d').click(function () {
-                    $('#no_1_d #div_hide').css("display", "block");
-                    $('#no_1_d .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_1_d').val();
+            } while (!(randomNum1 < randomNum2));
+            do {
 
-                    var num_1 = parseInt($('.span_num_1_d').text());
-                    var num_2 = parseInt($('.span_num_2_d').text());
-                    $('.span_num_11_d').text(num_1);
-                    $('.span_num_12_d').text(num_2);
-                    $('.span_num_13_d').text(input_num);
+                randomNum1_b = getRandomNumberDiff(20, 1);
+                randomNum2_b = getRandomNumber(20);
+            } while (!(randomNum1_b < randomNum2_b));
+            do {
+                randomNum1_f = getRandomNumberDiff(9, 1);
+                randomNum2_f = getRandomNumberDiff(9, 1);
+            } while (!(randomNum1_f < randomNum2_f));
 
-                    var sum = num_2 + num_1;
-                    if (sum === parseInt(input_num)) {
-                        $('#span_ans_1_d').text("Correct!!");
-                        $('#span_ans_1_d').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_1_d').text("Please input number!!");
-                        $('#no_1_d .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_1_d').text("Wrong!!");
-                        $('#span_ans_1_d').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#a_math_1_b').click(function () {
-                    $('#no_1_b #div_hide').css("display", "block");
-                    $('#no_1_b .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_1_b').val();
+            const randomNum1_d = getRandomNumberDiff(9, 1);
+            const randomNum2_d = getRandomNumberDiff(9, 1);
 
-                    var num_1 = parseInt($('.span_num_1_b').text());
-                    var num_2 = parseInt($('.span_num_2_b').text());
-                    $('.span_num_11_b').text(num_1);
-                    $('.span_num_12_b').text(num_2);
-                    $('.span_num_13_b').text(input_num);
+            const randomNum1_a = getRandomNumberDiff(10, 2);
+            const randomNum1_c = getRandomNumberDiff(10, 2);
+            const randomNum3 = getRandomNumber(20);
+            const randomNum4 = getRandomNumber(10);
+            const randomNum3_a = getRandomNumber(9);
+            const randomNum4_a = getRandomNumber(10);
 
-                    var sum = num_2 - parseInt(input_num);
-                    if (sum === num_1) {
-                        $('#span_ans_1_b').text("Correct!!");
-                        $('#span_ans_1_b').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_1_b').text("Please input number!!");
-                        $('#no_1_b .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_1_b').text("Wrong!!");
-                        $('#span_ans_1_b').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#a_math_1_c').click(function () {
-                    $('#no_1_c #div_hide').css("display", "block");
-                    $('#no_1_c .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_1_c').val();
+            var randomNum51 = getRandomNumber(30);
+            var randomNum52 = getRandomNumber(30);
 
-                    var num_1 = parseInt($('.span_num_1_c').text());
-                    var num_2 = parseInt($('.span_num_2_c').text());
-                    $('.span_num_11_c').text(num_1);
-                    $('.span_num_12_c').text(num_2);
-                    $('.span_num_13_c').text(input_num);
 
-                    var sum = parseInt(input_num) - num_1;
-                    if (sum === num_2) {
-                        $('#span_ans_1_c').text("Correct!!");
-                        $('#span_ans_1_c').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_1_c').text("Please input number!!");
-                        $('#no_1_a .div_hide_c').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_1_c').text("Wrong!!");
-                        $('#span_ans_1_c').css("color", "red");
-                    }
-                });
-            });
-        </script>
 
-        <script>
-            $(document).ready(function () {
-                $('#a_math_2').click(function () {
-                    $('#no_2 #div_hide').css("display", "block");
-                    $('#no_2 .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_2').val();
+            $(".span_num_1").text(randomNum1);
+            $(".span_num_2").text(randomNum2);
 
-                    var num_1 = parseInt($('.span_num_3').text());
-                    var num_2 = parseInt($('.span_num_4').text());
-                    $('.span_num_23').text(num_1);
-                    $('.span_num_24').text(num_2);
-                    $('.span_num_22').text(input_num);
+            $(".span_num_1_a").text('1');
+            $(".span_num_2_a").text(randomNum1_a);
 
-                    var sum = num_1 + num_2;
-                    if (sum === parseInt(input_num)) {
-                        $('#span_ans_2').text("Correct!!");
-                        $('#span_ans_2').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_2').text("Please input number!!");
-                        $('#no_2 .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_2').text("Wrong!!");
-                        $('#span_ans_2').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#a_math_2_a').click(function () {
-                    $('#no_2_a #div_hide').css("display", "block");
-                    $('#no_2_a .div_hide_2').css("display", "block");
-                    var input_num = $('#input_math_2_a').val();
+            $(".span_num_1_d").text(randomNum1_d);
+            $(".span_num_2_d").text(randomNum2_d);
 
-                    var num_1 = parseInt($('.span_num_3_a').text());
-                    var num_2 = parseInt($('.span_num_4_a').text());
-                    $('.span_num_23_a').text(num_1);
-                    $('.span_num_24_a').text(num_2);
-                    $('.span_num_22_a').text(input_num);
+            $(".span_num_1_b").text(randomNum1_b);
+            $(".span_num_2_b").text(randomNum2_b);
 
-                    var sum = num_1 + parseInt(input_num);
-                    if (sum === num_2) {
-                        $('#span_ans_2_a').text("Correct!!");
-                        $('#span_ans_2_a').css("color", "green");
-                    }
-                    else if (input_num === "") {
-                        $('#span_ans_2_a').text("Please input number!!");
-                        $('#no_2_a .div_hide_2').css("display", "none");
-                    }
-                    else {
-                        $('#span_ans_2_a').text("Wrong!!");
-                        $('#span_ans_2_a').css("color", "red");
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                generateRandomSequence();
-                generateRandomSequence2();
-                // 添加按一下事件處理常式以檢查答案
-                $("#a_math_3").click(function () {
-                    // 獲取用戶輸入的值並與正確答案進行比較
-                    var isSequence1Correct = checkSequence1(); // 檢查第一個序列
-                    if (isSequence1Correct) {
-                        $('#span_ans_3').text("Correct!!");
-                        $('#span_ans_3').css("color", "green");
-                    }
-                    else {
-                        $('#span_ans_3').text("Wrong!!");
-                        $('#span_ans_3').css("color", "red");
-                    }
-                });
-                $("#a_math_4").click(function () {
-                    var isSequence2Correct = checkSequence2();
+            $(".span_num_1_c").text('1');
+            $(".span_num_2_c").text(randomNum1_c);
+            $(".span_num_1_f").text(randomNum1_f);
+            $(".span_num_2_f").text(randomNum2_f);
 
-                    if (isSequence2Correct) {
-                        $('#span_ans_4').text("Correct!!");
-                        $('#span_ans_4').css("color", "green");
-                    }
-                    else {
-                        $('#span_ans_4').text("Wrong!!");
-                        $('#span_ans_4').css("color", "red");
-                    }
-                });
-            });
+            $(".span_num_3").text(randomNum3);
+            $(".span_num_4").text(randomNum4);
+            $(".span_num_3_a").text(randomNum3_a);
+            $(".span_num_4_a").text(randomNum4_a);
 
-            function generateRandomSequence() {
-                var randomStart = Math.floor(Math.random() * 21); // 隨機生成 0 到 20 的數字
-                var emptyCount = Math.floor(Math.random() * 3) + 3; // 隨機生成 3 到 5 之間的數字，表示要清空的空格數量
-                var isReversed = randomStart > 11; // 如果隨機數大於 11，則設置為反序
+            $(".span_num_51").text(randomNum51);
+            $(".span_num_52").text(randomNum52);
+        }
 
-                var sequence = [];
-                for (var i = 0; i < 7; i++) {
-                    if (isReversed) {
-                        sequence.push(randomStart - i);
-                    } else {
-                        sequence.push(randomStart + i);
-                    }
+        // 隨機生成 0 到 max 之間的數字
+        function getRandomNumber(max) {
+            return Math.floor(Math.random() * (max + 1));
+        }
+        // 隨機生成 0 到 max 之間的數字(減法)
+        function getRandomNumberDiff(max, limit) {
+            return Math.floor(Math.random() * (max + 1)) + limit;
+            //Math.floor(Math.random() * 9) + 2
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1').click(function () {
+                $('#no_1 #div_hide').css("display", "block");
+                $('#no_1 .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1').val();
+
+                var num_1 = parseInt($('.span_num_1').text());
+                var num_2 = parseInt($('.span_num_2').text());
+                $('.span_num_11').text(num_1);
+                $('.span_num_12').text(num_2);
+                $('.span_num_13').text(input_num);
+
+                var sum = num_2 + parseInt(input_num);
+                if (sum === num_1) {
+                    $('#span_ans_1').text("Correct!!");
+                    $('#span_ans_1').css("color", "green");
                 }
-
-                // 隨機生成要清空的位置索引
-                var emptyIndices = getRandomEmptyIndices(7, emptyCount);
-
-                // 填充 span 和 input 元素
-                for (var i = 0; i < 7; i++) {
-                    var spanElement = $(".span_num_" + (i + 31));
-                    var inputElement = $("#input_math_" + (i + 31));
-                    spanElement.text(sequence[i]);
-
-                    if (emptyIndices.includes(i)) {
-                        inputElement.val(''); // 清空輸入框
-                        $(".span_num_3" + (i + 1)).css('color', 'green');
-                        $(".span_num_3" + (i + 1)).addClass('missing_num_3' + i);
-                    } else {
-                        inputElement.val(sequence[i]); // 在其他位置填充數字
-                        inputElement.attr('readonly', true);
-                        inputElement.addClass('disabled-input');
-                    }
+                else if (input_num === "") {
+                    $('#span_ans_1').text("Please input number!!");
+                    $('#no_1 .div_hide_2').css("display", "none");
                 }
-            }
-            function getRandomEmptyIndices(total, emptyCount) {
-                // 生成要清空的位置索引，確保不連續
-                var emptyIndices = [];
-                while (emptyIndices.length < emptyCount) {
-                    var randomIndex = Math.floor(Math.random() * total);
-                    if (!emptyIndices.includes(randomIndex)) {
-                        emptyIndices.push(randomIndex);
-                    }
+                else {
+                    $('#span_ans_1').text("Wrong!!");
+                    $('#span_ans_1').css("color", "red");
                 }
-                return emptyIndices;
-            }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1_a').click(function () {
+                $('#no_1_a #div_hide').css("display", "block");
+                $('#no_1_a .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1_a').val();
 
-            function generateRandomSequence2() {
-                var randomStart = Math.floor(Math.random() * 22); // 隨機生成 0 到 30 的數
-                var emptyCount = Math.floor(Math.random() * 3) + 3; // 隨機生成 3 到 5 之間的數字，表示要清空的空格數量
-                var isIncreasing = randomStart < 12 ? true : Math.random() < 0.5; // 隨機決定是遞增還是遞減
+                var num_1 = parseInt($('.span_num_1_a').text());
+                var num_2 = parseInt($('.span_num_2_a').text());
+                $('.span_num_11_a').text(num_1);
+                $('.span_num_12_a').text(num_2);
+                $('.span_num_13_a').text(input_num);
 
-                // 根據遞減情況排除會導致負數的數字
-                if (!isIncreasing) {
-                    var maxPossibleStart = 30 - (emptyCount - 1) * 2; // 計算最大允許的初始值
-                    randomStart = Math.min(randomStart, maxPossibleStart); // 取最小值
+                var sum = num_1 + parseInt(input_num);
+                if (sum === num_2) {
+                    $('#span_ans_1_a').text("Correct!!");
+                    $('#span_ans_1_a').css("color", "green");
                 }
-
-                var sequence = [];
-                var emptyIndices = getRandomEmptyIndices(7, emptyCount); // 生成要清空的位置索引
-
-                for (var i = 0; i < 7; i++) {
-                    sequence.push(randomStart);
-
-                    // 根據是否要清空的情況更新下一個數
-                    if (emptyIndices.includes(i)) {
-                        $("#input_math_4" + (i + 1)).val('');
-                        $(".span_num_4" + (i + 1)).css('color', 'green');
-                        $(".span_num_4" + (i + 1)).addClass('missing_num_4' + i);
-                    } else {
-                        $("#input_math_4" + (i + 1)).val(sequence[i]);
-                        $("#input_math_4" + (i + 1)).attr('readonly', true);
-                        $("#input_math_4" + (i + 1)).addClass('disabled-input');
-                    }
-
-                    // 根據遞增或遞減的情況更新下一個數
-                    if (isIncreasing) {
-                        randomStart += 2; // 遞增2
-                    } else {
-                        randomStart -= 2; // 遞減2
-                    }
+                else if (input_num === "") {
+                    $('#span_ans_1_a').text("Please input number!!");
+                    $('#no_1_a .div_hide_2').css("display", "none");
                 }
+                else {
+                    $('#span_ans_1_a').text("Wrong!!");
+                    $('#span_ans_1_a').css("color", "red");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1_d').click(function () {
+                $('#no_1_d #div_hide').css("display", "block");
+                $('#no_1_d .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1_d').val();
 
-                // 填充 span 元素
-                for (var i = 0; i < 7; i++) {
-                    $(".span_num_4" + (i + 1)).text(sequence[i]);
+                var num_1 = parseInt($('.span_num_1_d').text());
+                var num_2 = parseInt($('.span_num_2_d').text());
+                $('.span_num_11_d').text(num_1);
+                $('.span_num_12_d').text(num_2);
+                $('.span_num_13_d').text(input_num);
+
+                var sum = num_2 + num_1;
+                if (sum === parseInt(input_num)) {
+                    $('#span_ans_1_d').text("Correct!!");
+                    $('#span_ans_1_d').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_1_d').text("Please input number!!");
+                    $('#no_1_d .div_hide_2').css("display", "none");
+                }
+                else {
+                    $('#span_ans_1_d').text("Wrong!!");
+                    $('#span_ans_1_d').css("color", "red");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1_b').click(function () {
+                $('#no_1_b #div_hide').css("display", "block");
+                $('#no_1_b .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1_b').val();
+
+                var num_1 = parseInt($('.span_num_1_b').text());
+                var num_2 = parseInt($('.span_num_2_b').text());
+                $('.span_num_11_b').text(num_1);
+                $('.span_num_12_b').text(num_2);
+                $('.span_num_13_b').text(input_num);
+
+                var sum = num_2 - parseInt(input_num);
+                if (sum === num_1) {
+                    $('#span_ans_1_b').text("Correct!!");
+                    $('#span_ans_1_b').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_1_b').text("Please input number!!");
+                    $('#no_1_b .div_hide_2').css("display", "none");
+                }
+                else {
+                    $('#span_ans_1_b').text("Wrong!!");
+                    $('#span_ans_1_b').css("color", "red");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_1_c').click(function () {
+                $('#no_1_c #div_hide').css("display", "block");
+                $('#no_1_c .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_1_c').val();
+
+                var num_1 = parseInt($('.span_num_1_c').text());
+                var num_2 = parseInt($('.span_num_2_c').text());
+                $('.span_num_11_c').text(num_1);
+                $('.span_num_12_c').text(num_2);
+                $('.span_num_13_c').text(input_num);
+
+                var sum = parseInt(input_num) - num_1;
+                if (sum === num_2) {
+                    $('#span_ans_1_c').text("Correct!!");
+                    $('#span_ans_1_c').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_1_c').text("Please input number!!");
+                    $('#no_1_a .div_hide_c').css("display", "none");
+                }
+                else {
+                    $('#span_ans_1_c').text("Wrong!!");
+                    $('#span_ans_1_c').css("color", "red");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#a_math_2').click(function () {
+                $('#no_2 #div_hide').css("display", "block");
+                $('#no_2 .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_2').val();
+
+                var num_1 = parseInt($('.span_num_3').text());
+                var num_2 = parseInt($('.span_num_4').text());
+                $('.span_num_23').text(num_1);
+                $('.span_num_24').text(num_2);
+                $('.span_num_22').text(input_num);
+
+                var sum = num_1 + num_2;
+                if (sum === parseInt(input_num)) {
+                    $('#span_ans_2').text("Correct!!");
+                    $('#span_ans_2').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_2').text("Please input number!!");
+                    $('#no_2 .div_hide_2').css("display", "none");
+                }
+                else {
+                    $('#span_ans_2').text("Wrong!!");
+                    $('#span_ans_2').css("color", "red");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#a_math_2_a').click(function () {
+                $('#no_2_a #div_hide').css("display", "block");
+                $('#no_2_a .div_hide_2').css("display", "block");
+                var input_num = $('#input_math_2_a').val();
+
+                var num_1 = parseInt($('.span_num_3_a').text());
+                var num_2 = parseInt($('.span_num_4_a').text());
+                $('.span_num_23_a').text(num_1);
+                $('.span_num_24_a').text(num_2);
+                $('.span_num_22_a').text(input_num);
+
+                var sum = num_1 + parseInt(input_num);
+                if (sum === num_2) {
+                    $('#span_ans_2_a').text("Correct!!");
+                    $('#span_ans_2_a').css("color", "green");
+                }
+                else if (input_num === "") {
+                    $('#span_ans_2_a').text("Please input number!!");
+                    $('#no_2_a .div_hide_2').css("display", "none");
+                }
+                else {
+                    $('#span_ans_2_a').text("Wrong!!");
+                    $('#span_ans_2_a').css("color", "red");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            generateRandomSequence();
+            generateRandomSequence2();
+            // 添加按一下事件處理常式以檢查答案
+            $("#a_math_3").click(function () {
+                // 獲取用戶輸入的值並與正確答案進行比較
+                var isSequence1Correct = checkSequence1(); // 檢查第一個序列
+                if (isSequence1Correct) {
+                    $('#span_ans_3').text("Correct!!");
+                    $('#span_ans_3').css("color", "green");
+                }
+                else {
+                    $('#span_ans_3').text("Wrong!!");
+                    $('#span_ans_3').css("color", "red");
+                }
+            });
+            $("#a_math_4").click(function () {
+                var isSequence2Correct = checkSequence2();
+
+                if (isSequence2Correct) {
+                    $('#span_ans_4').text("Correct!!");
+                    $('#span_ans_4').css("color", "green");
+                }
+                else {
+                    $('#span_ans_4').text("Wrong!!");
+                    $('#span_ans_4').css("color", "red");
+                }
+            });
+        });
+
+        function generateRandomSequence() {
+            var randomStart = Math.floor(Math.random() * 21); // 隨機生成 0 到 20 的數字
+            var emptyCount = Math.floor(Math.random() * 3) + 3; // 隨機生成 3 到 5 之間的數字，表示要清空的空格數量
+            var isReversed = randomStart > 11; // 如果隨機數大於 11，則設置為反序
+
+            var sequence = [];
+            for (var i = 0; i < 7; i++) {
+                if (isReversed) {
+                    sequence.push(randomStart - i);
+                } else {
+                    sequence.push(randomStart + i);
                 }
             }
 
-            function checkSequence1() {
-                var isCorrect = true;
+            // 隨機生成要清空的位置索引
+            var emptyIndices = getRandomEmptyIndices(7, emptyCount);
 
-                // 逐一檢查用戶輸入與正確答案是否匹配
-                for (var i = 0; i < 7; i++) {
-                    var userInput = $("#input_math_" + (i + 31)).val();
-                    var correctAnswer = $(".span_num_" + (i + 31)).text();
+            // 填充 span 和 input 元素
+            for (var i = 0; i < 7; i++) {
+                var spanElement = $(".span_num_" + (i + 31));
+                var inputElement = $("#input_math_" + (i + 31));
+                spanElement.text(sequence[i]);
 
-                    if (userInput !== correctAnswer) {
-                        isCorrect = false;
-                        break; // 一旦發現錯誤，就停止檢查
-                    }
+                if (emptyIndices.includes(i)) {
+                    inputElement.val(''); // 清空輸入框
+                    $(".span_num_3" + (i + 1)).css('color', 'green');
+                    $(".span_num_3" + (i + 1)).addClass('missing_num_3' + i);
+                } else {
+                    inputElement.val(sequence[i]); // 在其他位置填充數字
+                    inputElement.attr('readonly', true);
+                    inputElement.addClass('disabled-input');
                 }
-                return isCorrect;
+            }
+        }
+        function getRandomEmptyIndices(total, emptyCount) {
+            // 生成要清空的位置索引，確保不連續
+            var emptyIndices = [];
+            while (emptyIndices.length < emptyCount) {
+                var randomIndex = Math.floor(Math.random() * total);
+                if (!emptyIndices.includes(randomIndex)) {
+                    emptyIndices.push(randomIndex);
+                }
+            }
+            return emptyIndices;
+        }
+
+        function generateRandomSequence2() {
+            var randomStart = Math.floor(Math.random() * 22); // 隨機生成 0 到 30 的數
+            var emptyCount = Math.floor(Math.random() * 3) + 3; // 隨機生成 3 到 5 之間的數字，表示要清空的空格數量
+            var isIncreasing = randomStart < 12 ? true : Math.random() < 0.5; // 隨機決定是遞增還是遞減
+
+            // 根據遞減情況排除會導致負數的數字
+            if (!isIncreasing) {
+                var maxPossibleStart = 30 - (emptyCount - 1) * 2; // 計算最大允許的初始值
+                randomStart = Math.min(randomStart, maxPossibleStart); // 取最小值
             }
 
-            function checkSequence2() {
-                var isCorrect = true;
+            var sequence = [];
+            var emptyIndices = getRandomEmptyIndices(7, emptyCount); // 生成要清空的位置索引
 
-                // 逐一檢查用戶輸入與正確答案是否匹配
-                for (var i = 0; i < 7; i++) {
-                    var userInput = $("#input_math_4" + (i + 1)).val();
-                    var correctAnswer = $(".span_num_4" + (i + 1)).text();
+            for (var i = 0; i < 7; i++) {
+                sequence.push(randomStart);
 
-                    if (userInput !== correctAnswer) {
-                        isCorrect = false;
-                        break; // 一旦發現錯誤，就停止檢查
-                    }
+                // 根據是否要清空的情況更新下一個數
+                if (emptyIndices.includes(i)) {
+                    $("#input_math_4" + (i + 1)).val('');
+                    $(".span_num_4" + (i + 1)).css('color', 'green');
+                    $(".span_num_4" + (i + 1)).addClass('missing_num_4' + i);
+                } else {
+                    $("#input_math_4" + (i + 1)).val(sequence[i]);
+                    $("#input_math_4" + (i + 1)).attr('readonly', true);
+                    $("#input_math_4" + (i + 1)).addClass('disabled-input');
                 }
-                return isCorrect;
+
+                // 根據遞增或遞減的情況更新下一個數
+                if (isIncreasing) {
+                    randomStart += 2; // 遞增2
+                } else {
+                    randomStart -= 2; // 遞減2
+                }
             }
 
-        </script>
+            // 填充 span 元素
+            for (var i = 0; i < 7; i++) {
+                $(".span_num_4" + (i + 1)).text(sequence[i]);
+            }
+        }
 
-        <script>
-            $(document).ready(function () {
-                $("#a_math_5").click(function () {
-                    var choice = $('input[name="choice"]:checked').val();
+        function checkSequence1() {
+            var isCorrect = true;
 
-                    var num1 = parseInt($(".span_num_51").text());
-                    var num2 = parseInt($(".span_num_52").text());
+            // 逐一檢查用戶輸入與正確答案是否匹配
+            for (var i = 0; i < 7; i++) {
+                var userInput = $("#input_math_" + (i + 31)).val();
+                var correctAnswer = $(".span_num_" + (i + 31)).text();
 
-                    var isCorrect = false;
-                    if (choice === "greater" && num1 > num2) {
-                        isCorrect = true;
-                    } else if (choice === "less" && num1 < num2) {
-                        isCorrect = true;
-                    }
+                if (userInput !== correctAnswer) {
+                    isCorrect = false;
+                    break; // 一旦發現錯誤，就停止檢查
+                }
+            }
+            return isCorrect;
+        }
 
-                    if (isCorrect) {
-                        $('#' + choice).addClass('btn-correct');
-                    } else {
-                        $('#' + choice).addClass('btn-incorrect');
-                    }
+        function checkSequence2() {
+            var isCorrect = true;
 
-                    if (isCorrect) {
-                        $('#span_ans_5').text("Correct!!!");
-                        $('#span_ans_5').css("color", "green");
-                    } else {
-                        $('#span_ans_5').text("Wrong!!");
-                        $('#span_ans_5').css("color", "red");
-                    }
-                });
-                // 選項選中時的樣式改變
-                $(".btn-style input[type='radio']").change(function () {
-                    $(".btn-style label").removeClass("selected");
-                    if ($(this).is(":checked")) {
-                        $(this).next("label").addClass("selected");
-                    }
-                });
+            // 逐一檢查用戶輸入與正確答案是否匹配
+            for (var i = 0; i < 7; i++) {
+                var userInput = $("#input_math_4" + (i + 1)).val();
+                var correctAnswer = $(".span_num_4" + (i + 1)).text();
+
+                if (userInput !== correctAnswer) {
+                    isCorrect = false;
+                    break; // 一旦發現錯誤，就停止檢查
+                }
+            }
+            return isCorrect;
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#a_math_5").click(function () {
+                var choice = $('input[name="choice"]:checked').val();
+
+                var num1 = parseInt($(".span_num_51").text());
+                var num2 = parseInt($(".span_num_52").text());
+
+                var isCorrect = false;
+                if (choice === "greater" && num1 > num2) {
+                    isCorrect = true;
+                } else if (choice === "less" && num1 < num2) {
+                    isCorrect = true;
+                }
+
+                if (isCorrect) {
+                    $('#' + choice).addClass('btn-correct');
+                } else {
+                    $('#' + choice).addClass('btn-incorrect');
+                }
+
+                if (isCorrect) {
+                    $('#span_ans_5').text("Correct!!!");
+                    $('#span_ans_5').css("color", "green");
+                } else {
+                    $('#span_ans_5').text("Wrong!!");
+                    $('#span_ans_5').css("color", "red");
+                }
             });
-        </script>
- </head>
+            // 選項選中時的樣式改變
+            $(".btn-style input[type='radio']").change(function () {
+                $(".btn-style label").removeClass("selected");
+                if ($(this).is(":checked")) {
+                    $(this).next("label").addClass("selected");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
     <div class="container">
         <main role="main" class="pb-3">
 
