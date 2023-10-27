@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <textarea id="names" rows="4" cols="50" placeholder="Enter names, separated by , ; 。"></textarea>
+    <textarea id="names" rows="4" cols="50" placeholder="Enter names, separated by ,"></textarea>
     <br>
     <label for="count">Number of Names to Select:</label>
     <input type="number" id="count">
@@ -43,7 +43,7 @@
             var resultDiv = document.getElementById("result");
 
             var inputNames = namesTextArea.value;
-            var splitCharacters = [",", ";", "。"];
+            var splitCharacters = [",", ";", "。", "，"];
             var splitRegex = new RegExp("[" + splitCharacters.join("") + "]+", "g");
             var names = inputNames.split(splitRegex).map(name => name.trim());
 
