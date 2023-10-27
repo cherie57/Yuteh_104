@@ -27,15 +27,12 @@
             $('#a_math_3').click();
             $('#a_math_4').click();
             $('#a_math_5').click();
+
         });
     </script>
 
     <script>
         $(document).ready(function () {
-            $('#numericInput').on('input', function () {
-                var numericInput = $(this).val().replace(/[^0-9]/g, '');
-                $(this).val(numericInput);
-            });
             generateRandomNumbers();
         });
 
@@ -207,8 +204,7 @@
         });
     </script>
 
-   
-    <script>/* 1.(d)減法法用法_1*/
+    <script>
         $(document).ready(function () {
             $('#a_math_1_b').click(function () {
                 $('#no_1_b #div_hide').css("display", "block");
@@ -238,8 +234,7 @@
         });
     </script>
 
-    
-    <script>/*1.(e)減法法用法_2*/
+    <script>
         $(document).ready(function () {
             $('#a_math_1_c').click(function () {
                 $('#no_1_c #div_hide').css("display", "block");
@@ -269,8 +264,7 @@
         });
     </script>
 
-   
-    <script>/* 1.(f)減法法用法_3 What number is(num_1) less than(num_2) ? (input_num) */
+    <script>
         $(document).ready(function () {
             $('#a_math_1_f').click(function () {
                 $('#no_1_f #div_hide').css("display", "block");
@@ -300,8 +294,7 @@
         });
     </script>
 
-   
-    <script>/*  加法用法_1 */
+    <script>
         $(document).ready(function () {
             $('#a_math_2').click(function () {
                 $('#no_2 #div_hide').css("display", "block");
@@ -331,8 +324,7 @@
         });
     </script>
 
-    
-    <script>/* 加法用法_2 */
+    <script>
         $(document).ready(function () {
             $('#a_math_2_a').click(function () {
                 $('#no_2_a #div_hide').css("display", "block");
@@ -362,8 +354,7 @@
         });
     </script>
 
-   
-    <script>/* 產生數列*/
+    <script>
         $(document).ready(function () {
             generateRandomSequence();
             generateRandomSequence2();
@@ -516,8 +507,7 @@
 
     </script>
 
-    
-    <script>/*比較兩數大小*/
+    <script>
         $(document).ready(function () {
             $("#a_math_5").click(function () {
                 var choice = $('input[name="choice"]:checked').val();
@@ -556,10 +546,9 @@
         });
     </script>
 
-    
-    <script>/*設置初始倒計時時間*/
-        
-        var countdownTime = 10 * 60;// 設置初始倒計時時間（60秒）
+    <script>
+        // 設置初始倒計時時間（60秒）
+        var countdownTime = 10;//10 * 60;
         let isRunning = false; // 初始狀態為暫停
 
         var countdownElement = $('#countdown');
@@ -702,6 +691,7 @@
 </head>
 
 <body>
+
     <div class="text-center mb-5">
         <h2 class="text-info">Let’s start playing a math game.</h2>
     </div>
@@ -965,8 +955,8 @@
                 </div>
             </div>
         </div>
-
-        <a class="a_btn" id="submitAnswers">Submit</a>
+        <div class="mb-5"></div>
+        <a id="submitAnswers" class="a_btn ml-1 p-2" style="background-color: #f2df4d; color:#939597; border:0px;">Submit</a>
         <div class="mb-5"></div>
 
     </div>
