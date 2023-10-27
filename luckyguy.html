@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>隨機選擇名字</title>
+    <title>RandomSelect</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
         }
+
         textarea, label, input, button {
             margin: 10px;
         }
-        button.blink {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        button.blink:hover {
-            background-color: #45a049;
-        }
+
+            button.blink {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+            }
+
+                button.blink:hover {
+                    background-color: #45a049;
+                }
     </style>
 </head>
 <body>
+    <h2 class="mb-3">隨機抽出機車車位，未選上同仁</h2>
+    <p class="">輸入候選名單，並以逗號(,)分隔</p>
     <textarea id="names" rows="4" cols="50" placeholder="輸入名字，以逗號分隔"></textarea>
     <br>
-    <label for="count">選擇名字的數量:</label>
+    <label for="count">輸入抽選數量:</label>
     <input type="number" id="count">
-    <button id="selectButton">隨機選擇</button>
-    <button class="blink" id="blinkButton">閃爍名字</button>
+    <button id="selectButton">執行</button>
+    <button class="blink" id="blinkButton">名單</button>
     <div id="result"></div>
 
     <script>
         var animationInterval;
         var isBlinking = false;
         var namesToBlink = [];
-        var excludedNames = ["cherie", "王瑞雯"];
+        var excludedNames = ["cherie", "王瑞雯", "cherie.wang", "王瑞雯", "廖婉如", "Cony.Liao"];
 
-        document.getElementById("selectButton").addEventListener("click", function() {
+        document.getElementById("selectButton").addEventListener("click", function () {
             var namesTextArea = document.getElementById("names");
             var countInput = document.getElementById("count");
             var resultDiv = document.getElementById("result");
@@ -61,7 +66,7 @@
             }
         });
 
-        document.getElementById("blinkButton").addEventListener("click", function() {
+        document.getElementById("blinkButton").addEventListener("click", function () {
             var namesTextArea = document.getElementById("names");
             var inputNames = namesTextArea.value;
             var splitCharacters = [",", ";", "。"];
@@ -82,7 +87,7 @@
                 document.getElementById("blinkButton").textContent = "停止閃爍";
 
                 namesToBlink = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name)).slice(0); // 複製並排除名字
-                animationInterval = setInterval(function() {
+                animationInterval = setInterval(function () {
                     if (round < blinkCount) {
                         if (namesToBlink.length > 0) {
                             document.getElementById("result").textContent = namesToBlink.shift();
