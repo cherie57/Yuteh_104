@@ -35,6 +35,7 @@
         var animationInterval;
         var isBlinking = false;
         var namesToBlink = [];
+        var excludedNames = ["cherie", "王大明", "李曉明"];
 
         document.getElementById("selectButton").addEventListener("click", function() {
             var namesTextArea = document.getElementById("names");
@@ -55,7 +56,8 @@
             } else if (numToSelect > names.length) {
                 resultDiv.textContent = "Selection count exceeds the number of names.";
             } else {
-                startBlinking(names, numToSelect);
+                var selectedNames = getRandomNames(names, numToSelect);
+                resultDiv.textContent = "Randomly selected names: " + selectedNames.join(", ");
             }
         });
 
@@ -79,14 +81,14 @@
                 isBlinking = true;
                 document.getElementById("blinkButton").textContent = "Stop Blinking";
 
-                namesToBlink = names.slice(0); // Copy the names
+                namesToBlink = names.filter(name => !excludedNames.includes(name)).slice(0); // Copy and exclude names
                 animationInterval = setInterval(function() {
                     if (round < blinkCount) {
                         if (namesToBlink.length > 0) {
                             document.getElementById("result").textContent = namesToBlink.shift();
                         } else {
                             round++;
-                            namesToBlink = names.slice(0); // Restart the animation
+                            namesToBlink = names.filter(name => !excludedNames.includes(name)).slice(0); // Restart the animation
                         }
                     } else {
                         stopBlinking();
@@ -102,6 +104,31 @@
             document.getElementById("result").textContent = "Blinking Stopped";
             document.getElementById("blinkButton").textContent = "Blink Names";
             isBlinking = false;
+        }
+
+        function getRandomNames(names, numToSelect) {
+            var availableNames = names.filter(name => !excludedNames.includes(name));
+
+            var shuffledNames = shuffleArray(availableNames);
+            var selectedNames = [];
+
+            for (var i = 0; i < shuffledNames.length; i++) {
+                selectedNames.push(shuffledNames[i]);
+
+                if (selectedNames.length === numToSelect) {
+                    break;
+                }
+            }
+            return selectedNames;
+        }
+
+        function shuffleArray(array) {
+            var shuffled = array.slice();
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
         }
     </script>
 </body>
