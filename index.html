@@ -547,50 +547,52 @@
         });
     </script>
 
+    
     <script>
-        // 設置初始倒計時時間（60秒）
-        var countdownTime = 10;//10 * 60;
-        let isRunning = false; // 初始狀態為暫停
+        $(document).ready(function () {
+            // 設置初始倒計時時間（60秒）
+            var countdownTime = 10;//10 * 60;
+            let isRunning = false; // 初始狀態為暫停
 
-        var countdownElement = $('#countdown');
-        var startButton = $('#startButton');
-        var timer;
+            var countdownElement = $('#countdown');
+            var startButton = $('#startButton');
+            var timer;
 
-        // 更新倒計時顯示的函數
-        function updateCountdown() {
-            var minutes = Math.floor(countdownTime / 60);
-            var seconds = countdownTime % 60;
-            countdownElement.text(minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
+            // 更新倒計時顯示的函數
+            function updateCountdown() {
+                var minutes = Math.floor(countdownTime / 60);
+                var seconds = countdownTime % 60;
+                countdownElement.text(minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
 
-            if (countdownTime === 0) {
-                alert("Time's up!");
-                isRunning = false;
-                startButton.text("Start");
-                countdownElement.text("00:00");
-                disableInputs(true); //時間到後停止使用輸入框
-            } else {
-                countdownTime--;
-                timer = setTimeout(updateCountdown, 1000);
+                if (countdownTime === 0) {
+                    alert("Time's up!");
+                    isRunning = false;
+                    startButton.text("Start");
+                    countdownElement.text("00:00");
+                    disableInputs(true); //時間到後停止使用輸入框
+                } else {
+                    countdownTime--;
+                    timer = setTimeout(updateCountdown, 1000);
+                }
             }
-        }
-        function disableInputs(disable) {
-            $('input[type="text"]').prop('disabled', disable);
-        }
-
-        startButton.on('click', function () {
-            if (!isRunning) {
-                isRunning = true;
-                startButton.text("Pause");
-                disableInputs(false);
-                updateCountdown();
-            } else {
-                isRunning = false;
-                startButton.text("Continue");
-                clearTimeout(timer);
-                disableInputs(false);
+            function disableInputs(disable) {
+                $('input[type="text"]').prop('disabled', disable);
             }
+
+            startButton.on('click', function () {
+                if (!isRunning) {
+                    isRunning = true;
+                    startButton.text("Pause");
+                    disableInputs(false);
+                    updateCountdown();
+                } else {
+                    isRunning = false;
+                    startButton.text("Continue");
+                    clearTimeout(timer);
+                    disableInputs(false);
+                }
+            });
         });
-
     </script>
 
     <style>
