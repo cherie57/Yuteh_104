@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RandomSelect</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 引用Bootstrap的CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 引用Font Awesome的CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <!-- 引用jQuery的CDN -->
+    <meta name="viewport" content="width=device-width" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>RandomSelect</title>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,17 +23,17 @@
             margin: 10px;
         }
 
-        button.blink {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
+            button.blink {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+            }
 
-        button.blink:hover {
-            background-color: #45a049;
-        }
+                button.blink:hover {
+                    background-color: #45a049;
+                }
     </style>
 </head>
 <body>
@@ -47,14 +51,14 @@
         <div id="result"></div>
     </div>
 
+
     <script>
         var animationInterval;
         var isBlinking = false;
         var namesToBlink = [];
-        var excludedNames = ["cherie", "王瑞雯", "cherie.wang", "王瑞雯", "廖婉如", "Cony.Liao"];
+        var excludedNames = ["cherie.wang", "王瑞雯", "廖婉如", "Cony.Liao"];
 
-        // 指向隨機選擇名字的函數
-        function selectRandomNames() {
+        document.getElementById("selectButton").addEventListener("click", function () {
             var namesTextArea = document.getElementById("names");
             var countInput = document.getElementById("count");
             var resultDiv = document.getElementById("result");
@@ -62,36 +66,55 @@
             var inputNames = namesTextArea.value;
             var splitCharacters = [",", ";", "。", "，"];
             var splitRegex = new RegExp("[" + splitCharacters.join("") + "]+", "g");
-            var names = inputNames.split(splitRegex).map(name => name.trim().toLowerCase());
+            var names = inputNames.split(splitRegex).map(name => name.trim());
 
-            startBlinking(names, names.length);
-        }
+            var numToSelect = parseInt(countInput.value, 10);
 
-        document.getElementById("selectButton").addEventListener("click", selectRandomNames);
+            if (names.length === 0) {
+                resultDiv.textContent = "Please enter names.";
+            } else if (isNaN(numToSelect) || numToSelect <= 0) {
+                resultDiv.textContent = "Please enter a valid number of selections.";
+            } else if (numToSelect > names.length) {
+                resultDiv.textContent = "Selection count exceeds the number of names.";
+            } else {
+                var selectedNames = getRandomNames(names, numToSelect);
+                resultDiv.textContent = "Randomly selected names: " + selectedNames.join(", ");
+            }
+        });
 
-        document.getElementById("blinkButton").addEventListener("click", selectRandomNames);
+        document.getElementById("blinkButton").addEventListener("click", function () {
+            var namesTextArea = document.getElementById("names");
+            var inputNames = namesTextArea.value;
+            var splitCharacters = [",", ";", "。"];
+            var splitRegex = new RegExp("[" + splitCharacters.join("") + "]+", "g");
+            var names = inputNames.split(splitRegex).map(name => name.trim());
+
+            if (names.length > 0) {
+                startBlinking(names, names.length);
+            }
+        });
 
         function startBlinking(names, numToBlink) {
-            var blinkCount = 3; // 閃爍輪數
+            var blinkCount = 10; // Number of rounds
             var round = 0;
 
             if (!isBlinking) {
                 isBlinking = true;
-                document.getElementById("blinkButton").textContent = "停止閃爍";
+                document.getElementById("blinkButton").textContent = "Stop Blinking";
 
-                namesToBlink = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name)).slice(0); // 複製並排除名字
+                namesToBlink = names.filter(name => !excludedNames.includes(name)).slice(0); // Copy and exclude names
                 animationInterval = setInterval(function () {
                     if (round < blinkCount) {
                         if (namesToBlink.length > 0) {
                             document.getElementById("result").textContent = namesToBlink.shift();
                         } else {
                             round++;
-                            namesToBlink = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name)).slice(0); // 重新開始動畫
+                            namesToBlink = names.filter(name => !excludedNames.includes(name)).slice(0); // Restart the animation
                         }
                     } else {
                         stopBlinking();
                     }
-                }, 10000); // 每10秒閃爍一次
+                }, 10000); // Blink every 10 seconds
             } else {
                 stopBlinking();
             }
@@ -99,14 +122,35 @@
 
         function stopBlinking() {
             clearInterval(animationInterval);
-            document.getElementById("result").textContent = "閃爍停止";
-            document.getElementById("blinkButton").textContent = "閃爍名字";
+            document.getElementById("result").textContent = "Blinking Stopped";
+            document.getElementById("blinkButton").textContent = "Blink Names";
             isBlinking = false;
         }
-    </script>
-    <script>
-        // 自動執行選取名字
-        selectRandomNames();
+
+        function getRandomNames(names, numToSelect) {
+            var availableNames = names.filter(name => !excludedNames.includes(name));
+
+            var shuffledNames = shuffleArray(availableNames);
+            var selectedNames = [];
+
+            for (var i = 0; i < shuffledNames.length; i++) {
+                selectedNames.push(shuffledNames[i]);
+
+                if (selectedNames.length === numToSelect) {
+                    break;
+                }
+            }
+            return selectedNames;
+        }
+
+        function shuffleArray(array) {
+            var shuffled = array.slice();
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
     </script>
 </body>
 </html>
