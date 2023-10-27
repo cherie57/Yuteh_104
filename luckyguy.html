@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>隨機選擇名字</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        textarea, label, input, button {
+            margin: 10px;
+        }
+        button.blink {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button.blink:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="names" rows="4" cols="50" placeholder="輸入名字，以逗號分隔"></textarea>
+    <br>
+    <label for="count">選擇名字的數量:</label>
+    <input type="number" id="count">
+    <button id="selectButton">隨機選擇</button>
+    <button class="blink" id="blinkButton">閃爍名字</button>
+    <div id="result"></div>
+
+    <script>
+        var animationInterval;
+        var isBlinking = false;
+        var namesToBlink = [];
+        var excludedNames = ["cherie", "王瑞雯"];
+
+        document.getElementById("selectButton").addEventListener("click", function() {
+            var namesTextArea = document.getElementById("names");
+            var countInput = document.getElementById("count");
+            var resultDiv = document.getElementById("result");
+
+            var inputNames = namesTextArea.value;
+            var splitCharacters = [",", ";", "。", "，"];
+            var splitRegex = new RegExp("[" + splitCharacters.join("") + "]+", "g");
+            var names = inputNames.split(splitRegex).map(name => name.trim().toLowerCase());
+
+            var numToSelect = parseInt(countInput.value, 10);
+
+            if (names.length === 0) {
+                resultDiv.textContent = "請輸入名字。";
+            } else if (isNaN(numToSelect) || numToSelect <= 0) {
+                resultDiv.textContent = "請輸入有效的選擇數量。";
+            } else if (numToSelect > names.length) {
+                resultDiv.textContent = "選擇數量超過名字的數量。";
+            } else {
+                var selectedNames = getRandomNames(names, numToSelect);
+                resultDiv.textContent = "隨機選擇的名字: " + selectedNames.join(", ");
+            }
+        });
+
+        document.getElementById("blinkButton").addEventListener("click", function() {
+            var namesTextArea = document.getElementById("names");
+            var inputNames = namesTextArea.value;
+            var splitCharacters = [",", ";", "。"];
+            var splitRegex = new RegExp("[" + splitCharacters.join("") + "]+", "g");
+            var names = inputNames.split(splitRegex).map(name => name.trim().toLowerCase());
+
+            if (names.length > 0) {
+                startBlinking(names, names.length);
+            }
+        });
+
+        function startBlinking(names, numToBlink) {
+            var blinkCount = 10; // 閃爍回合數
+            var round = 0;
+
+            if (!isBlinking) {
+                isBlinking = true;
+                document.getElementById("blinkButton").textContent = "停止閃爍";
+
+                namesToBlink = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name)).slice(0); // 複製並排除名字
+                animationInterval = setInterval(function() {
+                    if (round < blinkCount) {
+                        if (namesToBlink.length > 0) {
+                            document.getElementById("result").textContent = namesToBlink.shift();
+                        } else {
+                            round++;
+                            namesToBlink = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name)).slice(0); // 重新開始動畫
+                        }
+                    } else {
+                        stopBlinking();
+                    }
+                }, 10000); // 每10秒閃爍一次
+            } else {
+                stopBlinking();
+            }
+        }
+
+        function stopBlinking() {
+            clearInterval(animationInterval);
+            document.getElementById("result").textContent = "閃爍停止";
+            document.getElementById("blinkButton").textContent = "閃爍名字";
+            isBlinking = false;
+        }
+
+        function getRandomNames(names, numToSelect) {
+            var availableNames = names.filter(name => !excludedNames.map(name => name.toLowerCase()).includes(name));
+
+            var shuffledNames = shuffleArray(availableNames);
+            var selectedNames = [];
+
+            for (var i = 0; i < shuffledNames.length; i++) {
+                selectedNames.push(shuffledNames[i]);
+
+                if (selectedNames.length === numToSelect) {
+                    break;
+                }
+            }
+            return selectedNames;
+        }
+
+        function shuffleArray(array) {
+            var shuffled = array.slice();
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+    </script>
+</body>
+</html>
