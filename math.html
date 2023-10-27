@@ -15,20 +15,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
-        $('#submitAnswers').click(function () {
-            $('#a_math_1').click();
-            $('#a_math_1_a').click();
-            $('#a_math_1_d').click();
-            $('#a_math_1_b').click();
-            $('#a_math_1_c').click();
-            $('#a_math_1_f').click();
-            $('#a_math_2').click();
-            $('#a_math_2_a').click();
-            $('#a_math_3').click();
-            $('#a_math_4').click();
-            $('#a_math_5').click();
+        $(document).ready(function () {
+            $('#submitAnswers').click(function () {
+                $('#a_math_1').click();
+                $('#a_math_1_a').click();
+                $('#a_math_1_d').click();
+                $('#a_math_1_b').click();
+                $('#a_math_1_c').click();
+                $('#a_math_1_f').click();
+                $('#a_math_2').click();
+                $('#a_math_2_a').click();
+                $('#a_math_3').click();
+                $('#a_math_4').click();
+                $('#a_math_5').click();
+
+                var correctCount = 0;
+
+                var correctCount = 0;
+
+                for (var i = 1; i <= 5; i++) {
+                    if ($(`#span_ans_${i}`).text().toLowerCase().indexOf("correct") !== -1) {
+                        correctCount++;
+                    }
+                }
+
+                for (var i = 'a'.charCodeAt(0); i <= 'f'.charCodeAt(0); i++) {
+                    if ($(`#span_ans_1_${String.fromCharCode(i)}`).text().toLowerCase().indexOf("correct") !== -1) {
+                        correctCount++;
+                    }
+                }
+
+                if (correctCount === 0) {
+                    alert("No answers are correct.");
+                } else {
+                    alert("Number of correct answers: " + correctCount);
+                }
+            });
         });
     </script>
+
 
     <script>
         $(document).ready(function () {
@@ -203,7 +228,6 @@
         });
     </script>
 
-    <!--1.(d)減法法用法_1*@ -->
     <script>
         $(document).ready(function () {
             $('#a_math_1_b').click(function () {
@@ -234,7 +258,6 @@
         });
     </script>
 
-   <!--@*1.(e)減法法用法_2*@--> 
     <script>
         $(document).ready(function () {
             $('#a_math_1_c').click(function () {
@@ -265,7 +288,6 @@
         });
     </script>
 
-    <!--@*1.(f)減法法用法_3 What number is (num_1) less than (num_2) ?(input_num) *@-->
     <script>
         $(document).ready(function () {
             $('#a_math_1_f').click(function () {
@@ -296,7 +318,6 @@
         });
     </script>
 
-   <!-- @*加法用法_1*@ -->
     <script>
         $(document).ready(function () {
             $('#a_math_2').click(function () {
@@ -327,7 +348,6 @@
         });
     </script>
 
-   <!-- @*加法用法_2*@ -->
     <script>
         $(document).ready(function () {
             $('#a_math_2_a').click(function () {
@@ -358,7 +378,6 @@
         });
     </script>
 
-    <!--@*產生數列*@-->
     <script>
         $(document).ready(function () {
             generateRandomSequence();
@@ -512,7 +531,6 @@
 
     </script>
 
-    <!--@*比較兩數大小*@-->
     <script>
         $(document).ready(function () {
             $("#a_math_5").click(function () {
@@ -552,63 +570,52 @@
         });
     </script>
 
-   <!-- @*設置初始倒計時時間*@ -->
+
     <script>
-        // 設置初始倒計時時間（60秒）
-        let countdownTime = 10; // 60秒
-        let isRunning = false; // 初始狀態為暫停
+        $(document).ready(function () {
+            // 設置初始倒計時時間（60秒）
+            var countdownTime = 10 * 60;
+            let isRunning = false; // 初始狀態為暫停
 
-        // 獲取顯示倒計時的元素
-        const countdownElement = document.getElementById('countdown');
+            var countdownElement = $('#countdown');
+            var startButton = $('#startButton');
+            var timer;
 
-        // 更新倒計時顯示的函數
-        function updateCountdown() {
-            const minutes = Math.floor(countdownTime / 60);
-            const seconds = countdownTime % 60;
-            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            // 更新倒計時顯示的函數
+            function updateCountdown() {
+                var minutes = Math.floor(countdownTime / 60);
+                var seconds = countdownTime % 60;
+                countdownElement.text(minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
 
-            if (countdownTime === 0) {
-                // 時間到，彈出警告框
-                alert("時間到!");
-
-                // 停止倒計時
-                clearInterval(timer);
-                isRunning = false;
-                startButton.textContent = "Start"; // 恢復按鈕文本為"開始"
-                // 鎖定所有輸入欄位
-                const inputElements = document.querySelectorAll('input[type="text"]');
-                inputElements.forEach(input => {
-                    input.disabled = true;
-                });
+                if (countdownTime === 0) {
+                    alert("Time's up!");
+                    isRunning = false;
+                    startButton.text("Start");
+                    countdownElement.text("00:00");
+                    disableInputs(true); //時間到後停止使用輸入框
+                } else {
+                    countdownTime--;
+                    timer = setTimeout(updateCountdown, 1000);
+                }
+            }
+            function disableInputs(disable) {
+                $('input[type="text"]').prop('disabled', disable);
             }
 
-            countdownTime--; // 每秒減少一秒
-        }
-
-        // 更新倒計時的初始顯示
-        updateCountdown();
-
-        // 定義一個計時器變數
-        let timer = null;
-
-        // 獲取開始/暫停按鈕元素
-        const startButton = document.getElementById('startButton');
-
-        // 點擊按鈕時啟動/暫停倒計時
-        startButton.addEventListener('click', function () {
-            if (!isRunning) {
-                // 從暫停狀態開始
-                timer = setInterval(updateCountdown, 1000);
-                isRunning = true;
-                startButton.textContent = "Pause"; // 按鈕文本變為"暫停"
-            } else {
-                // 暫停倒計時
-                clearInterval(timer);
-                isRunning = false;
-                startButton.textContent = "Continue"; // 按鈕文本變為"繼續"
-            }
+            startButton.on('click', function () {
+                if (!isRunning) {
+                    isRunning = true;
+                    startButton.text("Pause");
+                    disableInputs(false);
+                    updateCountdown();
+                } else {
+                    isRunning = false;
+                    startButton.text("Continue");
+                    clearTimeout(timer);
+                    disableInputs(false);
+                }
+            });
         });
-
     </script>
 
     <style>
@@ -706,10 +713,25 @@
             top: 104px;
             right: 20px;
         }
+
+        #submitAnswers {
+            background-color: #f2df4d;
+            color: #939597;
+            border: 0px;
+            text-decoration: none;
+            margin-left: 30px;
+        }
+
+            #submitAnswers:hover, #submitAnswers:active {
+                color: #f2df4d;
+                background-color: #939597;
+                text-decoration: none;
+            }
     </style>
 </head>
 
 <body>
+
     <div class="text-center mb-5">
         <h2 class="text-info">Let’s start playing a math game.</h2>
     </div>
@@ -973,16 +995,16 @@
                 </div>
             </div>
         </div>
-
-        <a class="a_btn" id="submitAnswers">Submit</a>
+        <div class="mb-5"></div>
+        <a id="submitAnswers" class="a_btn ml-1 p-2">Submit</a>
         <div class="mb-5"></div>
 
     </div>
 
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Yuteh by Cherie Wang
+        <div class="container d-flex justify-content-between">
+            <div>&copy; 2023 - Yuteh by Cherie Wang</div>
             <div id="current_date">
                 <script>
                     document.getElementById("current_date").innerHTML = Date();
