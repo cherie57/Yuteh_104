@@ -15,19 +15,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
-        $('#submitAnswers').click(function () {
-            $('#a_math_1').click();
-            $('#a_math_1_a').click();
-            $('#a_math_1_d').click();
-            $('#a_math_1_b').click();
-            $('#a_math_1_c').click();
-            $('#a_math_1_f').click();
-            $('#a_math_2').click();
-            $('#a_math_2_a').click();
-            $('#a_math_3').click();
-            $('#a_math_4').click();
-            $('#a_math_5').click();
-
+        $(document).ready(function () {
+            $('#submitAnswers').click(function () {
+                $('#a_math_1').click();
+                $('#a_math_1_a').click();
+                $('#a_math_1_d').click();
+                $('#a_math_1_b').click();
+                $('#a_math_1_c').click();
+                $('#a_math_1_f').click();
+                $('#a_math_2').click();
+                $('#a_math_2_a').click();
+                $('#a_math_3').click();
+                $('#a_math_4').click();
+                $('#a_math_5').click();
+            });
         });
     </script>
 
@@ -687,6 +688,20 @@
             top: 104px;
             right: 20px;
         }
+
+        #submitAnswers {
+            background-color: #f2df4d;
+            color: #939597;
+            border: 0px;
+            text-decoration: none;
+            margin-left: 30px;
+        }
+
+            #submitAnswers:hover, #submitAnswers:active {
+                color: #f2df4d;
+                background-color: #939597;
+                text-decoration: none;
+            } 
     </style>
 </head>
 
@@ -956,7 +971,7 @@
             </div>
         </div>
         <div class="mb-5"></div>
-        <a id="submitAnswers" class="a_btn ml-1 p-2" style="background-color: #f2df4d; color:#939597; border:0px;">Submit</a>
+        <a id="submitAnswers" class="a_btn ml-1 p-2">Submit</a>
         <div class="mb-5"></div>
 
     </div>
