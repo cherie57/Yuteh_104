@@ -1,111 +1,41 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>Yuteh</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>
-        
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        .ui-widget {
-            font-size: 80%;
-        }
-
-        input[type="text"] {
-            text-align: center;
-            padding: 10px;
-            border-radius: 50px;
-        }
-
-        .a_btn {
-            height: 40px;
-            width: 73px;
-            margin-top: 4px;
-            text-align: center;
-            background: #efefef;
-            border: 2px solid #cfcfcf;
-            border-radius: 15px;
-            font-size: 18px;
-        }
-
-            .a_btn:hover {
-                cursor: pointer;
-                color: #efefef;
-                background: #0d6efd;
-            }
-
-            .a_btn:active {
-                color: blue;
-            }
-
-        #div_hide, .div_hide_2 {
-            display: none;
-        }
-
-        div#div_hide {
-            font-size: 20px;
-            color: #9f9c9c;
-            margin-left: 3%;
-            margin-top: 28px;
-        }
-
-        .correct-answer {
-            color: green;
-        }
-
-        .missing-answer {
-            color: red;
-        }
-
-        .span_font_bold {
-            font-weight: bolder;
-        }
-
-        .disabled-input:hover {
-            cursor: not-allowed;
-        }
-
-        .btn-style {
-            display: inline-block;
-            padding: 5px 10px;
-            cursor: pointer;
-            border: 2px solid #0f0f0f;
-            border-radius: 5px;
-            font-weight: bolder;
-        }
-
-            .btn-style:hover {
-                background-color: #98c1eb;
-            }
-
-        .selected {
-            background-color: #98c1eb;
-            color: #fff;
-        }
-
-        .d-flex {
-            display: f
-        }
-
-        #span_ans_1, #span_ans_2{
-            margin-top: 34px;
-        }
-
-    </style>
-
+    <script>
+        $('#submitAnswers').click(function () {
+            $('#a_math_1').click();
+            $('#a_math_1_a').click();
+            $('#a_math_1_d').click();
+            $('#a_math_1_b').click();
+            $('#a_math_1_c').click();
+            $('#a_math_1_f').click();
+            $('#a_math_2').click();
+            $('#a_math_2_a').click();
+            $('#a_math_3').click();
+            $('#a_math_4').click();
+            $('#a_math_5').click();
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
+            $('#numericInput').on('input', function () {
+                var numericInput = $(this).val().replace(/[^0-9]/g, '');
+                $(this).val(numericInput);
+            });
             generateRandomNumbers();
         });
 
@@ -115,13 +45,13 @@
             do {
                 randomNum1 = getRandomNumber(20);
                 randomNum2 = getRandomNumber(20);
+            } while (!(randomNum1 > randomNum2));
 
-            } while (!(randomNum1 < randomNum2));
             do {
-
                 randomNum1_b = getRandomNumberDiff(20, 1);
                 randomNum2_b = getRandomNumber(20);
             } while (!(randomNum1_b < randomNum2_b));
+
             do {
                 randomNum1_f = getRandomNumberDiff(9, 1);
                 randomNum2_f = getRandomNumberDiff(9, 1);
@@ -139,8 +69,6 @@
 
             var randomNum51 = getRandomNumber(30);
             var randomNum52 = getRandomNumber(30);
-
-
 
             $(".span_num_1").text(randomNum1);
             $(".span_num_2").text(randomNum2);
@@ -180,93 +108,107 @@
     </script>
 
     <script>
+        function checkMath1() {
+            $('#no_1 #div_hide').css("display", "block");
+            $('#no_1 .div_hide_2').css("display", "block");
+            var input_num = $('#input_math_1').val();
+
+            var num_1 = parseInt($('.span_num_1').text());
+            var num_2 = parseInt($('.span_num_2').text());
+            $('.span_num_11').text(num_1);
+            $('.span_num_12').text(num_2);
+            $('.span_num_13').text(input_num);
+
+            var sum = num_2 + parseInt(input_num);
+            if (sum === num_1) {
+                $('#span_ans_1').text("Correct!!");
+                $('#span_ans_1').css("color", "green");
+            }
+            else if (input_num === "") {
+                $('#span_ans_1').text("Please input number!!");
+                $('#no_1 .div_hide_2').css("display", "none");
+            }
+            else {
+                $('#span_ans_1').text("Wrong!!");
+                $('#span_ans_1').css("color", "red");
+            }
+        }
+
         $(document).ready(function () {
             $('#a_math_1').click(function () {
-                $('#no_1 #div_hide').css("display", "block");
-                $('#no_1 .div_hide_2').css("display", "block");
-                var input_num = $('#input_math_1').val();
-
-                var num_1 = parseInt($('.span_num_1').text());
-                var num_2 = parseInt($('.span_num_2').text());
-                $('.span_num_11').text(num_1);
-                $('.span_num_12').text(num_2);
-                $('.span_num_13').text(input_num);
-
-                var sum = num_2 + parseInt(input_num);
-                if (sum === num_1) {
-                    $('#span_ans_1').text("Correct!!");
-                    $('#span_ans_1').css("color", "green");
-                }
-                else if (input_num === "") {
-                    $('#span_ans_1').text("Please input number!!");
-                    $('#no_1 .div_hide_2').css("display", "none");
-                }
-                else {
-                    $('#span_ans_1').text("Wrong!!");
-                    $('#span_ans_1').css("color", "red");
-                }
+                checkMath1();
             });
         });
     </script>
     <script>
+        function checkMath1A() {
+            $('#no_1_a #div_hide').css("display", "block");
+            $('#no_1_a .div_hide_2').css("display", "block");
+            var input_num = $('#input_math_1_a').val();
+
+            var num_1 = parseInt($('.span_num_1_a').text());
+            var num_2 = parseInt($('.span_num_2_a').text());
+            $('.span_num_11_a').text(num_1);
+            $('.span_num_12_a').text(num_2);
+            $('.span_num_13_a').text(input_num);
+
+            var sum = num_1 + parseInt(input_num);
+            if (sum === num_2) {
+                $('#span_ans_1_a').text("Correct!!");
+                $('#span_ans_1_a').css("color", "green");
+            }
+            else if (input_num === "") {
+                $('#span_ans_1_a').text("Please input number!!");
+                $('#no_1_a .div_hide_2').css("display", "none");
+            }
+            else {
+                $('#span_ans_1_a').text("Wrong!!");
+                $('#span_ans_1_a').css("color", "red");
+            }
+        }
+
         $(document).ready(function () {
             $('#a_math_1_a').click(function () {
-                $('#no_1_a #div_hide').css("display", "block");
-                $('#no_1_a .div_hide_2').css("display", "block");
-                var input_num = $('#input_math_1_a').val();
-
-                var num_1 = parseInt($('.span_num_1_a').text());
-                var num_2 = parseInt($('.span_num_2_a').text());
-                $('.span_num_11_a').text(num_1);
-                $('.span_num_12_a').text(num_2);
-                $('.span_num_13_a').text(input_num);
-
-                var sum = num_1 + parseInt(input_num);
-                if (sum === num_2) {
-                    $('#span_ans_1_a').text("Correct!!");
-                    $('#span_ans_1_a').css("color", "green");
-                }
-                else if (input_num === "") {
-                    $('#span_ans_1_a').text("Please input number!!");
-                    $('#no_1_a .div_hide_2').css("display", "none");
-                }
-                else {
-                    $('#span_ans_1_a').text("Wrong!!");
-                    $('#span_ans_1_a').css("color", "red");
-                }
+                checkMath1A();
             });
         });
     </script>
+
     <script>
+        function checkMath1D() {
+            $('#no_1_d #div_hide').css("display", "block");
+            $('#no_1_d .div_hide_2').css("display", "block");
+            var input_num = $('#input_math_1_d').val();
+
+            var num_1 = parseInt($('.span_num_1_d').text());
+            var num_2 = parseInt($('.span_num_2_d').text());
+            $('.span_num_11_d').text(num_1);
+            $('.span_num_12_d').text(num_2);
+            $('.span_num_13_d').text(input_num);
+
+            var sum = num_2 + num_1;
+            if (sum === parseInt(input_num)) {
+                $('#span_ans_1_d').text("Correct!!");
+                $('#span_ans_1_d').css("color", "green");
+            }
+            else if (input_num === "") {
+                $('#span_ans_1_d').text("Please input number!!");
+                $('#no_1_d .div_hide_2').css("display", "none");
+            }
+            else {
+                $('#span_ans_1_d').text("Wrong!!");
+                $('#span_ans_1_d').css("color", "red");
+            }
+        }
         $(document).ready(function () {
             $('#a_math_1_d').click(function () {
-                $('#no_1_d #div_hide').css("display", "block");
-                $('#no_1_d .div_hide_2').css("display", "block");
-                var input_num = $('#input_math_1_d').val();
-
-                var num_1 = parseInt($('.span_num_1_d').text());
-                var num_2 = parseInt($('.span_num_2_d').text());
-                $('.span_num_11_d').text(num_1);
-                $('.span_num_12_d').text(num_2);
-                $('.span_num_13_d').text(input_num);
-
-                var sum = num_2 + num_1;
-                if (sum === parseInt(input_num)) {
-                    $('#span_ans_1_d').text("Correct!!");
-                    $('#span_ans_1_d').css("color", "green");
-                }
-                else if (input_num === "") {
-                    $('#span_ans_1_d').text("Please input number!!");
-                    $('#no_1_d .div_hide_2').css("display", "none");
-                }
-                else {
-                    $('#span_ans_1_d').text("Wrong!!");
-                    $('#span_ans_1_d').css("color", "red");
-                }
+                checkMath1D();
             });
         });
     </script>
-    <script>
+
+   
+    <script>/* 1.(d)減法法用法_1*/
         $(document).ready(function () {
             $('#a_math_1_b').click(function () {
                 $('#no_1_b #div_hide').css("display", "block");
@@ -295,7 +237,9 @@
             });
         });
     </script>
-    <script>
+
+    
+    <script>/*1.(e)減法法用法_2*/
         $(document).ready(function () {
             $('#a_math_1_c').click(function () {
                 $('#no_1_c #div_hide').css("display", "block");
@@ -324,7 +268,9 @@
             });
         });
     </script>
-    <script>
+
+   
+    <script>/* 1.(f)減法法用法_3 What number is(num_1) less than(num_2) ? (input_num) */
         $(document).ready(function () {
             $('#a_math_1_f').click(function () {
                 $('#no_1_f #div_hide').css("display", "block");
@@ -337,8 +283,8 @@
                 $('.span_num_12_f').text(num_2);
                 $('.span_num_13_f').text(input_num);
 
-                var sum = parseInt(input_num) - num_1;
-                if (sum === num_2) {
+                var sum = num_2 - num_1;
+                if (sum === parseInt(input_num)) {
                     $('#span_ans_1_f').text("Correct!!");
                     $('#span_ans_1_f').css("color", "green");
                 }
@@ -353,7 +299,9 @@
             });
         });
     </script>
-    <script>
+
+   
+    <script>/*  加法用法_1 */
         $(document).ready(function () {
             $('#a_math_2').click(function () {
                 $('#no_2 #div_hide').css("display", "block");
@@ -382,7 +330,9 @@
             });
         });
     </script>
-    <script>
+
+    
+    <script>/* 加法用法_2 */
         $(document).ready(function () {
             $('#a_math_2_a').click(function () {
                 $('#no_2_a #div_hide').css("display", "block");
@@ -411,7 +361,9 @@
             });
         });
     </script>
-    <script>
+
+   
+    <script>/* 產生數列*/
         $(document).ready(function () {
             generateRandomSequence();
             generateRandomSequence2();
@@ -564,7 +516,8 @@
 
     </script>
 
-    <script>
+    
+    <script>/*比較兩數大小*/
         $(document).ready(function () {
             $("#a_math_5").click(function () {
                 var choice = $('input[name="choice"]:checked').val();
@@ -602,282 +555,431 @@
             });
         });
     </script>
+
+    
+    <script>/*設置初始倒計時時間*/
+        
+        var countdownTime = 10 * 60;// 設置初始倒計時時間（60秒）
+        let isRunning = false; // 初始狀態為暫停
+
+        var countdownElement = $('#countdown');
+        var startButton = $('#startButton');
+        var timer;
+
+        // 更新倒計時顯示的函數
+        function updateCountdown() {
+            var minutes = Math.floor(countdownTime / 60);
+            var seconds = countdownTime % 60;
+            countdownElement.text(minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0'));
+
+            if (countdownTime === 0) {
+                alert("Time's up!");
+                isRunning = false;
+                startButton.text("Start");
+                countdownElement.text("00:00");
+                disableInputs(true); //時間到後停止使用輸入框
+            } else {
+                countdownTime--;
+                timer = setTimeout(updateCountdown, 1000);
+            }
+        }
+        function disableInputs(disable) {
+            $('input[type="text"]').prop('disabled', disable);
+        }
+
+        startButton.on('click', function () {
+            if (!isRunning) {
+                isRunning = true;
+                startButton.text("Pause");
+                disableInputs(false);
+                updateCountdown();
+            } else {
+                isRunning = false;
+                startButton.text("Continue");
+                clearTimeout(timer);
+                disableInputs(false);
+            }
+        });
+
+    </script>
+
+    <style>
+        input[type="text"] {
+            text-align: center;
+            padding: 10px;
+            border-radius: 50px;
+        }
+
+        .a_btn {
+            height: 40px;
+            width: 73px;
+            margin-top: 4px;
+            text-align: center;
+            background: #efefef;
+            border: 2px solid #cfcfcf;
+            border-radius: 15px;
+            font-size: 18px;
+        }
+
+            .a_btn:hover {
+                cursor: pointer;
+                color: #efefef;
+                background: #0d6efd;
+            }
+
+            .a_btn:active {
+                color: blue;
+            }
+
+        #div_hide, .div_hide_2 {
+            display: none;
+        }
+
+        div#div_hide {
+            font-size: 20px;
+            color: #9f9c9c;
+            margin-left: 3%;
+            margin-top: 28px;
+        }
+
+        .correct-answer {
+            color: green;
+        }
+
+        .missing-answer {
+            color: red;
+        }
+
+        .span_font_bold {
+            font-weight: bolder;
+        }
+
+        .disabled-input:hover {
+            cursor: not-allowed;
+        }
+
+        .btn-style {
+            display: inline-block;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 2px solid #0f0f0f;
+            border-radius: 5px;
+            font-weight: bolder;
+        }
+
+            .btn-style:hover {
+                background-color: #98c1eb;
+            }
+
+        .selected {
+            background-color: #98c1eb;
+            color: #fff;
+        }
+
+        #countdown {
+            font-size: 30px;
+            text-align: center;
+            margin-top: 50px;
+            color: red;
+            position: fixed;
+            top: 60px;
+            right: 150px;
+        }
+
+        #startButton {
+            background-color: #0f0f0f;
+            color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            position: fixed;
+            top: 104px;
+            right: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <main role="main" class="pb-3">
-
-            <div class="text-center mb-5">
-                <h2 class="text-info">Let's start playing math game.</h2>
-            </div>
-
-            <div class="m-1">
-                <div id="no_1" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="font-weight-bold">1.&nbsp; &nbsp;What is the missing numbers? </p>
-                                <p class="ms-md-4">
-                                    (a). <span class="span_num_1"></span> is
-                                    <input id="input_math_1" class="m-3" type="text" title="input one integer number" size="2" />
-                                    more than
-                                    <span class="span_num_2"></span>.
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1" class="a_btn ml-1 p-1" style="margin-top:60px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp;<span class="span_num_12"></span> +  <span class="span_num_13 text-decoration-underline"></span>  = <span class="span_num_11"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_1_a" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="ms-md-4">
-                                    (b).
-                                    <span class="span_num_1_a"></span> more than
-                                    <input id="input_math_1_a" class="m-3" type="text" title="input one integer number" size="2" />
-                                    is <span class="span_num_2_a"></span>.
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1_a" class="a_btn ml-1 p-1" style="margin-top:23px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp;<span class="span_num_13_a text-decoration-underline"></span> +  <span class="span_num_11_a"></span>  = <span class="span_num_12_a"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1_a" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_1_d" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="ms-md-4">
-                                    (c). What number is
-                                    <span class="span_num_1_d"></span> more than <span class="span_num_2_d"></span>&nbsp; ?&nbsp;
-                                    <b class="text-decoration-underline">Ans:</b><input id="input_math_1_d" class="m-3" type="text" title="input one integer number" size="2" />
-
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1_d" class="a_btn ml-1 p-1" style="margin-top:23px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp; <span class="span_num_12_d"></span> +  <span class="span_num_11_d"></span> = <span class="span_num_13_d text-decoration-underline"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1_d" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_1_b" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="ms-md-4">
-                                    (d). <span class="span_num_1_b"></span> is
-                                    <input id="input_math_1_b" class="m-3" type="text" title="input one integer number" size="2" />
-                                    less than
-                                    <span class="span_num_2_b"></span>.
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1_b" class="a_btn ml-1 p-1" style="margin-top:23px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp;<span class="span_num_12_b"></span> -  <span class="span_num_13_b text-decoration-underline"></span>  = <span class="span_num_11_b"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1_b" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_1_c" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="ms-md-4">
-                                    (e).
-                                    <span class="span_num_1_c"></span> less than
-                                    <input id="input_math_1_c" class="m-3" type="text" title="input one integer number" size="2" />
-                                    is <span class="span_num_2_c"></span>.
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1_c" class="a_btn ml-1 p-1" style="margin-top:23px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp;<span class="span_num_13_c text-decoration-underline"></span> -  <span class="span_num_11_c"></span>  = <span class="span_num_12_c"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1_c" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_1_f" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex">
-                            <div>
-                                <p class="ms-md-4">
-                                    (f). What number is
-                                    <span class="span_num_1_f"></span> less than <span class="span_num_2_f"></span>&nbsp; ?&nbsp;
-                                    <b class="text-decoration-underline">Ans:</b><input id="input_math_1_f" class="m-3" type="text" title="input one integer number" size="2" />
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_1_f" class="a_btn ml-1 p-1" style="margin-top:23px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                &nbsp;&nbsp;&nbsp; <span class="span_num_11_f"></span> -  <span class="span_num_12_f"></span> = <span class="span_num_13_f text-decoration-underline"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_1_f" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_2" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex" style="margin-top: 20px;">
-                            <div>
-                                <p class="font-weight-bold">2.&nbsp; &nbsp;What is the missing numbers? </p>
-                                <p class="ms-md-4">
-                                    (a).&nbsp; &nbsp;Add <span class="span_num_3"></span> and <span class="span_num_4"></span> = <input id="input_math_2" class="" type="text" title="input one integer number" size="2" /> .
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_2" class="a_btn ml-1 p-1" style="margin-top:43px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                <span class="span_num_23"></span> + <span class="span_num_24"></span>  = <span class="span_num_22 text-decoration-underline"></span> .&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_2" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="no_2_a" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex" style="margin-top: 20px;">
-                            <div>
-                                <p class="ms-md-4">
-                                    (b).&nbsp; &nbsp;<span class="span_num_3_a"></span> and  <input id="input_math_2_a" class="" type="text" title="input one integer number" size="2" />  make  <span class="span_num_4_a"></span> .
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_2_a" class="a_btn ml-1 p-1">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                <span class="span_num_23_a"></span> + <span class="span_num_22_a text-decoration-underline"></span>  = <span class="span_num_24_a"></span> .&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_2_a" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="no_3" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex" style="margin-top: 20px;">
-                            <div>
-                                <p class="font-weight-bold">3.&nbsp; &nbsp;Write the missing numbers. </p>
-                                <p class="ms-md-4">
-                                    (a). <input id="input_math_31" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_32" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_33" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_34" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_35" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_36" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_37" class="missing-number" type="text" size="2" />
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_3" class="a_btn ml-1 p-1" style="margin-top: 43px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center" style="margin-top: 68px;">
-                            <div class="div_hide_2">
-                                <span class="span_num_31"></span>,&nbsp;
-                                <span class="span_num_32"></span>,&nbsp;
-                                <span class="span_num_33"></span>,&nbsp;
-                                <span class="span_num_34"></span>,&nbsp;
-                                <span class="span_num_35"></span>,&nbsp;
-                                <span class="span_num_36"></span>,&nbsp;
-                                <span class="span_num_37"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_3" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="no_4" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex" style="margin-top: 20px;">
-                            <div>
-                                <p class="ms-md-4">
-                                    (b). <input id="input_math_41" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_42" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_43" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_44" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_45" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_46" class="missing-number" type="text" size="2" />
-                                    <input id="input_math_47" class="missing-number" type="text" size="2" />
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_4" class="a_btn ml-1 p-1">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                <span class="span_num_41"></span>,&nbsp;
-                                <span class="span_num_42"></span>,&nbsp;
-                                <span class="span_num_43"></span>,&nbsp;
-                                <span class="span_num_44"></span>,&nbsp;
-                                <span class="span_num_45"></span>,&nbsp;
-                                <span class="span_num_46"></span>,&nbsp;
-                                <span class="span_num_47"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_4" class="span_font_bold" style="font-size: 20px"></span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="no_5" class="m-2">
-                    <div class="d-flex justify-content-start">
-                        <div class="d-flex" style="margin-top: 20px;">
-                            <div>
-                                <p class="font-weight-bold">4.&nbsp; &nbsp;Choice the correct box.</p>
-                                <p class="ms-md-4">
-                                    <span class="span_num_51 text-decoration-underline font-weight-bold"></span>
-                                    is &nbsp;<label class="btn-style">
-                                        <input type="radio" name="choice" id="greater" value="greater" />greater
-                                    </label>
-                                    <label class="btn-style">
-                                        <input type="radio" name="choice" id="less" value="less" />less
-                                    </label>&nbsp;
-                                    than <span class="span_num_52 text-decoration-underline font-weight-bold"></span>.
-                                </p>
-                            </div>
-                            &nbsp;&nbsp;&nbsp;<a id="a_math_5" class="a_btn ml-1 p-1" style="margin-top: 35px;">Check </a>
-                        </div>
-                        <div id="div_hide" class="d-flex justify-content-center">
-                            <div class="div_hide_2">
-                                <span class="span_num_53"></span> is  <span class="span_num_55"></span> <span class="span_num_54"></span>.&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <span id="span_ans_5" class="span_font_bold" style="font-size: 20px; margin-top: 35px;"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-5"></div>
-
-            </div>
-
-        </main>
+    <div class="text-center mb-5">
+        <h2 class="text-info">Let’s start playing a math game.</h2>
     </div>
+    <div class="d-flex justify-content-start">
+        <button id="startButton">Start</button>
+    </div>
+    <div id="countdown"></div>
+    <div class="m-1">
+        <div id="no_1" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="font-weight-bold">1.&nbsp; &nbsp;What is the missing numbers? </p>
+                        <p class="ms-md-4">
+                            (a). <span class="span_num_1"></span> is
+                            <input id="input_math_1" class="m-3" type="text" title="input one integer number" size="2" />
+                            more than
+                            <span class="span_num_2"></span>.
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1" class="a_btn ml-1 p-1" style="margin-top:59px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center" style="margin-top:63px" ;>
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp;<span class="span_num_12"></span> +  <span class="span_num_13 text-decoration-underline"></span>  = <span class="span_num_11"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_1_a" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="ms-md-4">
+                            (b).
+                            <span class="span_num_1_a"></span> more than
+                            <input id="input_math_1_a" class="m-3" type="text" title="input one integer number" size="2" />
+                            is <span class="span_num_2_a"></span>.
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1_a" class="a_btn ml-1 p-1" style="margin-top:21px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp;<span class="span_num_13_a text-decoration-underline"></span> +  <span class="span_num_11_a"></span>  = <span class="span_num_12_a"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1_a" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_1_d" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="ms-md-4">
+                            (c). What number is
+                            <span class="span_num_1_d"></span> more than <span class="span_num_2_d"></span>&nbsp; ?&nbsp;
+                            <b class="text-decoration-underline">Ans:</b><input id="input_math_1_d" class="m-3" type="text" title="input one integer number" size="2" />
+
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1_d" class="a_btn ml-1 p-1" style="margin-top:21px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp; <span class="span_num_12_d"></span> +  <span class="span_num_11_d"></span> = <span class="span_num_13_d text-decoration-underline"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1_d" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_1_b" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="ms-md-4">
+                            (d). <span class="span_num_1_b"></span> is
+                            <input id="input_math_1_b" class="m-3" type="text" title="input one integer number" size="2" />less than
+                            <span class="span_num_2_b"></span>.
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1_b" class="a_btn ml-1 p-1" style="margin-top:21px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp;<span class="span_num_12_b"></span> -  <span class="span_num_13_b text-decoration-underline"></span>  = <span class="span_num_11_b"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1_b" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_1_c" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="ms-md-4">
+                            (e).
+                            <span class="span_num_1_c"></span> less than
+                            <input id="input_math_1_c" class="m-3" type="text" title="input one integer number" size="2" />
+                            is <span class="span_num_2_c"></span>.
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1_c" class="a_btn ml-1 p-1" style="margin-top:21px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp;<span class="span_num_13_c text-decoration-underline"></span> -  <span class="span_num_11_c"></span>  = <span class="span_num_12_c"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1_c" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_1_f" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex">
+                    <div>
+                        <p class="ms-md-4">
+                            (f). What number is
+                            <span class="span_num_1_f"></span> less than <span class="span_num_2_f"></span>&nbsp; ?&nbsp;
+                            <b class="text-decoration-underline">Ans:</b><input id="input_math_1_f" class="m-3" type="text" title="input one integer number" size="2" />
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_1_f" class="a_btn ml-1 p-1" style="margin-top:21px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        &nbsp;&nbsp;&nbsp; <span class="span_num_12_f"></span> -  <span class="span_num_11_f"></span> = <span class="span_num_13_f text-decoration-underline"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_1_f" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="no_2" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex" style="margin-top: 20px;">
+                    <div>
+                        <p class="font-weight-bold">2.&nbsp; &nbsp;What is the missing numbers? </p>
+                        <p class="ms-md-4">
+                            (a).&nbsp; &nbsp;Add <span class="span_num_3"></span> and <span class="span_num_4"></span> = <input id="input_math_2" class="" type="text" title="input one integer number" size="2" /> .
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_2" class="a_btn ml-1 p-1" style="margin-top: 45px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center" style="margin-top: 68px;">
+                    <div class="div_hide_2">
+                        <span class="span_num_23"></span> + <span class="span_num_24"></span>  = <span class="span_num_22 text-decoration-underline"></span> .&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_2" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+        <div id="no_2_a" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex" style="margin-top: 20px;">
+                    <div>
+                        <p class="ms-md-4">
+                            (b).&nbsp; &nbsp;<span class="span_num_3_a"></span> and  <input id="input_math_2_a" class="" type="text" title="input one integer number" size="2" />  make  <span class="span_num_4_a"></span> .
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_2_a" class="a_btn ml-1 p-1">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        <span class="span_num_23_a"></span> + <span class="span_num_22_a text-decoration-underline"></span>  = <span class="span_num_24_a"></span> .&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_2_a" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="no_3" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex" style="margin-top: 20px;">
+                    <div>
+                        <p class="font-weight-bold">3.&nbsp; &nbsp;Write the missing numbers. </p>
+                        <p class="ms-md-4">
+                            (a). <input id="input_math_31" class="missing-number" type="text" size="2" />
+                            <input id="input_math_32" class="missing-number" type="text" size="2" />
+                            <input id="input_math_33" class="missing-number" type="text" size="2" />
+                            <input id="input_math_34" class="missing-number" type="text" size="2" />
+                            <input id="input_math_35" class="missing-number" type="text" size="2" />
+                            <input id="input_math_36" class="missing-number" type="text" size="2" />
+                            <input id="input_math_37" class="missing-number" type="text" size="2" />
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_3" class="a_btn ml-1 p-1" style="margin-top: 43px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center" style="margin-top: 68px;">
+                    <div class="div_hide_2">
+                        <span class="span_num_31"></span>,&nbsp;
+                        <span class="span_num_32"></span>,&nbsp;
+                        <span class="span_num_33"></span>,&nbsp;
+                        <span class="span_num_34"></span>,&nbsp;
+                        <span class="span_num_35"></span>,&nbsp;
+                        <span class="span_num_36"></span>,&nbsp;
+                        <span class="span_num_37"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_3" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="no_4" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex" style="margin-top: 20px;">
+                    <div>
+                        <p class="ms-md-4">
+                            (b). <input id="input_math_41" class="missing-number" type="text" size="2" />
+                            <input id="input_math_42" class="missing-number" type="text" size="2" />
+                            <input id="input_math_43" class="missing-number" type="text" size="2" />
+                            <input id="input_math_44" class="missing-number" type="text" size="2" />
+                            <input id="input_math_45" class="missing-number" type="text" size="2" />
+                            <input id="input_math_46" class="missing-number" type="text" size="2" />
+                            <input id="input_math_47" class="missing-number" type="text" size="2" />
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_4" class="a_btn ml-1 p-1">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        <span class="span_num_41"></span>,&nbsp;
+                        <span class="span_num_42"></span>,&nbsp;
+                        <span class="span_num_43"></span>,&nbsp;
+                        <span class="span_num_44"></span>,&nbsp;
+                        <span class="span_num_45"></span>,&nbsp;
+                        <span class="span_num_46"></span>,&nbsp;
+                        <span class="span_num_47"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_4" class="span_font_bold" style="font-size: 20px"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="no_5" class="m-2">
+            <div class="d-flex justify-content-start">
+                <div class="d-flex" style="margin-top: 20px;">
+                    <div>
+                        <p class="font-weight-bold">4.&nbsp; &nbsp;Choice the correct box.</p>
+                        <p class="ms-md-4">
+                            <span class="span_num_51 text-decoration-underline font-weight-bold"></span>
+                            is &nbsp;<label class="btn-style">
+                                <input type="radio" name="choice" id="greater" value="greater" />greater
+                            </label>
+                            <label class="btn-style">
+                                <input type="radio" name="choice" id="less" value="less" />less
+                            </label>&nbsp;
+                            than <span class="span_num_52 text-decoration-underline font-weight-bold"></span>.
+                        </p>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;<a id="a_math_5" class="a_btn ml-1 p-1" style="margin-top: 35px;">Check </a>
+                </div>
+                <div id="div_hide" class="d-flex justify-content-center">
+                    <div class="div_hide_2">
+                        <span class="span_num_53"></span> is  <span class="span_num_55"></span> <span class="span_num_54"></span>.&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <span id="span_ans_5" class="span_font_bold" style="font-size: 20px; margin-top: 35px;"></span>
+                </div>
+            </div>
+        </div>
+
+        <a class="a_btn" id="submitAnswers">Submit</a>
+        <div class="mb-5"></div>
+
+    </div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Yuteh by Cherie Wang
+            <div id="current_date">
+                <script>
+                    document.getElementById("current_date").innerHTML = Date();
+                </script>
+            </div>
         </div>
     </footer>
 </body>
